@@ -16,8 +16,17 @@ app.get('/chat', (req, res) => {
   return res.sendFile(__dirname + '/chat.html');
 });
 
+// Main Conversation Chat App
 io.on('connection', (socket) => {
   console.log('user connection...');
+
+  // server sent all data to users
+  socket.on('on-chat', (data) => {
+    // this is data message from user
+    console.log(data);
+    // from chanel on-chat of client sent all to users by chanel user-chat
+    io.emit('user-chat', data);
+  });
 });
 
 const PORT = process.env.PORT || 9345;
