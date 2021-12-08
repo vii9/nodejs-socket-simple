@@ -21,8 +21,6 @@ chatForm.addEventListener('submit', (e) => {
   } else {
     return;
   }
-
-  
 });
 
 // render message to container
@@ -34,6 +32,18 @@ socket.on('user-chat', (dataChat) => {
   //chatItem.textContent for pass only text
   chatItem.innerHTML = `<span style="color: ${dataChat.color}">[${dataChat.username}]:</span> ${dataChat.msgChatValue}`;
   wrapperChat.appendChild(chatItem);
+});
+
+const bitcoinPrice = document.querySelector('#price');
+let lastPrice = 0;
+socket.on('bitcoin-price', (dataPrice) => {
+  const { price } = dataPrice;
+
+  bitcoinPrice.className = price > lastPrice ? 'up' : 'down';
+
+  lastPrice = price;
+
+  bitcoinPrice.textContent = `${price} USD`;
 });
 
 function getRandomColor() {

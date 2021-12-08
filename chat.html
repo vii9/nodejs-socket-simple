@@ -5,6 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chat App Socket.IO</title>
+    <style>
+      .up {
+        color: green;
+      }
+      .down {
+        color: red;
+      }
+    </style>
   </head>
   <body>
     <h2>Welcome Chat App</h2>
@@ -14,6 +22,7 @@
       <input type="text" name="chat-input" id="chat-input" />
       <button id="sent-message" type="submit">Sent Message</button>
     </form>
+    <span id="price"></span>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/main.js"></script>
   </body>

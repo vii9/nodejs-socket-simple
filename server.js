@@ -2,6 +2,7 @@ const express = require('express');
 const http = require('http');
 const path = require('path');
 const { Server } = require('socket.io');
+const delay = require('delay');
 
 const app = express();
 
@@ -20,7 +21,7 @@ app.get('/chat', (req, res) => {
 io.on('connection', (socket) => {
   console.log('user connection...');
 
-  // server sent all data to users
+  // server receive all data to users
   socket.on('on-chat', (data) => {
     // this is data message from user
     console.log(data);
@@ -31,3 +32,16 @@ io.on('connection', (socket) => {
 
 const PORT = process.env.PORT || 9345;
 server.listen(PORT, () => console.log(`Server running port ${PORT}`));
+
+async function broadcastBitcoinPrice() {
+  while (true) {
+    // const price = await getBitcoinPrice();
+    const price = 31630 + Math.random() * 400;
+
+    io.emit('bitcoin-price', { price: parseFloat(price.toFixed(2)) });
+
+    await delay(1000);
+  }
+}
+
+broadcastBitcoinPrice();
